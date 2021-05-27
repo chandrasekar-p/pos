@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>POS | Log in</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- Custom style -->
+  <link rel="stylesheet" href="dist/css/custom.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <style type="text/css">
+  .login-page {
+  background: url("dist/img/vegetables_bg.jpg") no-repeat center center fixed;
+  background-size: cover;
+  }
+  </style>
+</head>
+<body class="hold-transition login-page login_back">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="../../index2.html"><b>P</b>OS</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg">Sign in to start your session</p>
+
+      <form id="login" method="post">
+        <div class="input-group mb-3">
+          <input id="name" type="text" class="form-control inputs" placeholder="Username" tabIndex="1" autofocus autocomplete="off" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input id="password" type="password" class="form-control inputs" placeholder="Password" tabIndex="2" autofocus autocomplete="off" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Remember Me
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="button" onclick="sendJSON()" class="btn btn-primary btn-block" tabIndex="3">Sign In</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+     <!-- <div class="social-auth-links text-center mb-3">
+        <p>- OR -</p>
+        <a href="#" class="btn btn-block btn-primary">
+          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+        </a>
+        <a href="#" class="btn btn-block btn-danger">
+          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+        </a>
+      </div> -->
+      <!-- /.social-auth-links -->
+
+      <p class="mb-1">
+        <a href="forgot-password.html">I forgot my password</a>
+      </p>
+      <!-- <p class="mb-0">
+        <a href="register.html" class="text-center">Register a new membership</a>
+      </p> -->
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+  <center> <strong>Copyright &copy; <span id="year"></span> <a href="http://ec2cloud.in">POS</a> - </strong> Ver 1.0.1
+  </center> 
+</div>
+<!-- /.login-box -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- POS custom js -->
+<script src="dist/js/custom.js"></script>
+
+<script>
+$(document).on('keypress', 'input,select', function (e) {
+    if (e.which == 13) {
+        e.preventDefault();
+        var $next = $('[tabIndex=' + (+this.tabIndex + 1) + ']');
+        console.log($next.length);
+        if (!$next.length) {
+       $next = $('[tabIndex=1]');        }
+        $next.focus() .click();
+    }
+});   
+
+var d = new Date();
+document.getElementById("year").innerHTML = d.getFullYear();
+
+function sendJSON(){ 
+			
+			//let result = document.querySelector('.result'); 
+			let name = document.querySelector('#name'); 
+			let password = document.querySelector('#password'); 
+			let xhr = new XMLHttpRequest(); 
+			let url = "api.php"; 
+		
+			xhr.open("POST", url, true); 
+			xhr.setRequestHeader("Content-Type", "application/json"); 
+
+			xhr.onreadystatechange = function () { 
+				if (xhr.readyState === 4 && xhr.status === 200) { 
+
+					//result.innerHTML = this.responseText;
+
+				} 
+			}; 
+
+			var data = JSON.stringify({ "name": name.value, "password": password.value }); 
+      console.log(data)
+
+      xhr.send(data); 
+      
+    }     
+</script>
+
+</body>
+</html>
